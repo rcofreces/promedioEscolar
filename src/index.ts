@@ -1,52 +1,61 @@
-let nombresArreglo: string[] = new Array(3);
-let iNombres: number;
-let notasArreglo: number[] = new Array(3);
-let iNotas: number;
-let resultado0: number = 0;
-let resultado1: number = 0;
-let resultado2: number = 0;
+let cantidadAlumnos: number = Number(prompt("Ingrese la cantidad de alumnos"));
+let nombresArreglo: string[] = new Array(cantidadAlumnos);
+let notaPrimerTrimestre: number[] = new Array(cantidadAlumnos);
+let notaSegundoTrimestre: number[] = new Array(cantidadAlumnos);
+let notaTercerTrimestre: number[] = new Array(cantidadAlumnos);
+let indice: number = 0;
 
-for (iNombres = 0; iNombres < nombresArreglo.length; iNombres++) {
-  nombresArreglo[iNombres] = String(
-    prompt(`Ingrese el nombre del alumno de la posición ${iNombres}`)
+for (indice = 0; indice < nombresArreglo.length; indice++) {
+  nombresArreglo[indice] = String(
+    prompt(`Ingrese el nombre del alumno de la posición ${indice + 1}`)
+  );
+  notaPrimerTrimestre[indice] = Number(
+    prompt(`Ingrese la nota del primer trimestre del alumno ${indice + 1}`)
+  );
+  notaSegundoTrimestre[indice] = Number(
+    prompt(`Ingrese la nota del segundo trimestre del alumno ${indice + 1}`)
+  );
+  notaTercerTrimestre[indice] = Number(
+    prompt(`Ingrese la nota del tercer trimestre del alumno ${indice + 1}`)
   );
   console.log(
-    `El nombre del alumno en la posición ${iNombres} es: ${nombresArreglo[iNombres]}`
+    `Las notas del alumno ${nombresArreglo[indice]} son: ${notaPrimerTrimestre[indice]}, ${notaSegundoTrimestre[indice]}, ${notaTercerTrimestre[indice]}`
   );
 }
-for (iNotas = 0; iNotas < notasArreglo.length; iNotas++) {
-  notasArreglo[iNotas] = Number(
-    prompt(`Ingrese las notas del alumno ${nombresArreglo[0]}`)
-  );
+
+function promedio(
+  v1: number[],
+  v2: number[],
+  v3: number[],
+  indice: number
+): number {
+  let resultado: number =
+    (notaPrimerTrimestre[indice] +
+      notaSegundoTrimestre[indice] +
+      notaTercerTrimestre[indice]) /
+    3;
+  return resultado;
+}
+
+for (indice = 0; indice < nombresArreglo.length; indice++) {
   console.log(
-    `Las notas del alumno ${nombresArreglo[0]} son: ${notasArreglo[iNotas]}`
+    `El promedio de notas del alumno ${nombresArreglo[indice]} es: ${promedio(
+      notaPrimerTrimestre,
+      notaSegundoTrimestre,
+      notaTercerTrimestre,
+      indice
+    )}`
   );
-  resultado0 += notasArreglo[iNotas] / 3;
 }
+
+let consultaAlumno: string = String(prompt("Ingrese el alumno a consultar"));
+indice = nombresArreglo.indexOf(consultaAlumno);
+
 console.log(
-  `El promedio de notas del alumno ${nombresArreglo[0]} es: ${resultado0}`
-);
-for (iNotas = 0; iNotas < notasArreglo.length; iNotas++) {
-  notasArreglo[iNotas] = Number(
-    prompt(`Ingrese las notas del alumno ${nombresArreglo[1]}`)
-  );
-  console.log(
-    `Las notas del alumno ${nombresArreglo[1]} son: ${notasArreglo[iNotas]}`
-  );
-  resultado1 += notasArreglo[iNotas] / 3;
-}
-console.log(
-  `El promedio de notas del alumno ${nombresArreglo[1]} es: ${resultado1}`
-);
-for (iNotas = 0; iNotas < notasArreglo.length; iNotas++) {
-  notasArreglo[iNotas] = Number(
-    prompt(`Ingrese las notas del alumno ${nombresArreglo[2]}`)
-  );
-  console.log(
-    `Las notas del alumno ${nombresArreglo[2]} son: ${notasArreglo[iNotas]}`
-  );
-  resultado2 += notasArreglo[iNotas] / 3;
-}
-console.log(
-  `El promedio de notas del alumno ${nombresArreglo[2]} es: ${resultado2}`
+  `El Promedio anual del alumno ${consultaAlumno} es: ${promedio(
+    notaPrimerTrimestre,
+    notaSegundoTrimestre,
+    notaTercerTrimestre,
+    indice
+  )}`
 );
